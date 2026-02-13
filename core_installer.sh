@@ -729,17 +729,27 @@ InstPHP() {
         safe_install php-fpm php-cli php-common php-mysql php-xml php-curl php-gd php-mbstring php-zip php-bcmath
     else
         log_info "Installing PHP ${php_ver}..."
+        
+        # Mark problematic packages to avoid installation
+        apt-mark hold php-all-dev php-ssh2-all-dev 2>/dev/null || true
+        
         safe_install \
             "php${php_ver}-fpm" "php${php_ver}-cli" "php${php_ver}-common" \
             "php${php_ver}-mysql" "php${php_ver}-xml" "php${php_ver}-curl" \
             "php${php_ver}-gd" "php${php_ver}-mbstring" "php${php_ver}-opcache" \
             "php${php_ver}-zip" "php${php_ver}-intl" "php${php_ver}-bcmath" \
-            "php${php_ver}-soap" "php${php_ver}-imap" "php${php_ver}-dev"
+            "php${php_ver}-soap" "php${php_ver}-imap"
 
         # Optional packages (may not be available everywhere)
         safe_install "php${php_ver}-imagick" 2>/dev/null || true
         safe_install "php${php_ver}-xmlrpc" 2>/dev/null || true
-        safe_install libssh2-1 php-ssh2 2>/dev/null || true
+        
+        # Install ssh2 separately and carefully (avoid -all-dev packages)
+        safe_install libssh2-1 2>/dev/null || true
+        safe_install "php${php_ver}-ssh2" 2>/dev/null || true
+        
+        # Unhold packages
+        apt-mark unhold php-all-dev php-ssh2-all-dev 2>/dev/null || true
 
         enable_service "php${php_ver}-fpm"
         log_ok "PHP ${php_ver} installed"
