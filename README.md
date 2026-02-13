@@ -137,7 +137,7 @@ chmod +x projectfog_modern.sh core_installer.sh proxy3.py uninstaller.sh
 sudo su
 
 # Clone the repository
-git clone https://github.com/YOUR-REPO/Project-Fog-Modernized.git
+git clone https://github.com/jhonleoh/Korn-Sudo-2026.git
 cd Project-Fog-Modernized
 
 # Run the installer
