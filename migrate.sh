@@ -265,7 +265,17 @@ echo -e "${CYAN}[*]${NC} Installing Project Fog Modernized v2.0..."
 echo ""
 read -rp "Press Enter to start installation..."
 
+# Get the script directory
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+# Ensure installer has execute permissions
+chmod +x "${SCRIPT_DIR}/projectfog_modern.sh" 2>/dev/null || true
+chmod +x "${SCRIPT_DIR}/core_installer.sh" 2>/dev/null || true
+chmod +x "${SCRIPT_DIR}/proxy3.py" 2>/dev/null || true
+chmod +x "${SCRIPT_DIR}/uninstaller.sh" 2>/dev/null || true
+
 # Run the new installer
-exec ./projectfog_modern.sh
+cd "${SCRIPT_DIR}"
+exec bash ./projectfog_modern.sh
 
 # Note: After installation, user should manually restore VPN users from backup
