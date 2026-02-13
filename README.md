@@ -1,7 +1,7 @@
 # ☁️ Project Fog Modernized - VPS AutoScript ☁️
 
 **Version:** 2.0  
-**Author:** Modernized by Manus AI  
+**Author:** Modernized by Leo
 **License:** Unlicense (Public Domain)
 
 ---
